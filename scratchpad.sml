@@ -40,6 +40,17 @@ fun member(x, Leaf) = false
 
 val t1 = Branch(Leaf, 3, Branch(Leaf, 5, Leaf));
 
+member(1, t1)
 member(5, t1)
 
+fun insert(x, Leaf) = Branch(Leaf, x, Leaf)
+  | insert(x, tree as Branch(t1, y, t2)) =
+    if x < y then Branch(insert(x, t1), y, t2)
+    else if x > y then Branch(t1, y, insert(x, t2))
+    else tree;
 
+val tree = Branch(Leaf, 5, Leaf);
+val tree = insert(2, tree);
+val tree = insert(3, tree);
+val tree = insert(6, tree);
+val tree = insert(7, tree);
